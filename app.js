@@ -9,7 +9,7 @@ module.exports = async function (fastify, opts) {
 
   // Do not touch the following lines
   console.log(__dirname);
-
+  fastify.setNotFoundHandler(fastify.notFound)
   fastify.register(require("@fastify/static"), {
     root: path.join(__dirname, "public"),
     prefix: "/public/", // optional: default '/'
@@ -29,5 +29,11 @@ module.exports = async function (fastify, opts) {
     options: Object.assign({}, opts),
   });
 
-  
+  fastify.route({
+    method: "GET",
+    url: "*",
+    handler: async (request, reply) => {
+      return reply.sendFile("404.html");
+    },
+  });
 };

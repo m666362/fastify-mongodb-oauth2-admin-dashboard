@@ -7,11 +7,13 @@ module.exports = async function (fastify, opts) {
     // prefix: "/public/", // optional: default '/'
   });
 
-  fastify.get("/root", async function (request, reply) {
-    return { root: true };
-  });
-  fastify.get("/", async function (request, reply) {
-    console.log(__dirname);
-    return reply.sendFile("index.html")
+  
+
+  fastify.route({
+    method: "GET",
+    url: "/",
+    handler: async (request, reply) => {
+      return reply.sendFile("index.html")
+    },
   });
 };

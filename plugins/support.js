@@ -9,4 +9,8 @@ module.exports = fp(async function (fastify, opts) {
   fastify.decorate('someSupport', function () {
     return 'hugs'
   })
+
+  fastify.decorate('notFound', (request, reply) => {
+    reply.code(404).type('text/html').send('Rayhan Not Found')
+  })
 })
